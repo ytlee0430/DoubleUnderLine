@@ -38,7 +38,41 @@ namespace DoubleUnderline
                 MessageBox.Show("File path can't be empty!");
                 return;
             }
-            _controller.Run(ofdQuest.FileName, ofdAnswer.FileName);
+
+            try
+            {
+                _controller.RunDetail(ofdQuest.FileName, ofdAnswer.FileName);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Unhandled exception!");
+                MessageBox.Show(exception.ToString());
+            }
+        }
+
+        private void btnRunSimple_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(ofdQuest.FileName) || string.IsNullOrEmpty(ofdAnswer.FileName))
+            {
+                MessageBox.Show("File path can't be empty!");
+                return;
+            }
+
+            try
+            {
+                _controller.RunSimple(ofdQuest.FileName, ofdAnswer.FileName);
+
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Unhandled exception!");
+                MessageBox.Show(exception.ToString());
+            }
+        }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            _controller.Test(ofdQuest.FileName, ofdAnswer.FileName);
         }
     }
 }

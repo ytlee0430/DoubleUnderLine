@@ -35,6 +35,8 @@
             this.btnRun = new System.Windows.Forms.Button();
             this.ofdQuest = new System.Windows.Forms.OpenFileDialog();
             this.ofdAnswer = new System.Windows.Forms.OpenFileDialog();
+            this.btnRunSimple = new System.Windows.Forms.Button();
+            this.btnTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnQuest
@@ -77,7 +79,7 @@
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(110, 22);
             this.btnRun.TabIndex = 4;
-            this.btnRun.Text = "Run";
+            this.btnRun.Text = "Run Detail";
             this.btnRun.UseVisualStyleBackColor = true;
             this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
@@ -89,11 +91,33 @@
             // 
             this.ofdAnswer.FileName = "openFileDialog1";
             // 
+            // btnRunSimple
+            // 
+            this.btnRunSimple.Location = new System.Drawing.Point(128, 100);
+            this.btnRunSimple.Name = "btnRunSimple";
+            this.btnRunSimple.Size = new System.Drawing.Size(110, 22);
+            this.btnRunSimple.TabIndex = 5;
+            this.btnRunSimple.Text = "Run Simple";
+            this.btnRunSimple.UseVisualStyleBackColor = true;
+            this.btnRunSimple.Click += new System.EventHandler(this.btnRunSimple_Click);
+            // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(384, 110);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(110, 22);
+            this.btnTest.TabIndex = 6;
+            this.btnTest.Text = "Test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            // 
             // DoubleUnderLineForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(511, 144);
+            this.Controls.Add(this.btnTest);
+            this.Controls.Add(this.btnRunSimple);
             this.Controls.Add(this.btnRun);
             this.Controls.Add(this.tbxAnswer);
             this.Controls.Add(this.btnAnswer);
@@ -115,6 +139,8 @@
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.OpenFileDialog ofdQuest;
         private System.Windows.Forms.OpenFileDialog ofdAnswer;
+        private System.Windows.Forms.Button btnRunSimple;
+        private System.Windows.Forms.Button btnTest;
     }
 }
 
