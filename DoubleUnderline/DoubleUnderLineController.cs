@@ -35,23 +35,14 @@ namespace DoubleUnderline
                         var optionsEum = Regex.Matches(questParagraph.Text, "\\([Ａ-ＥA-E]\\)");
                         var options = (from Match answer in optionsEum select answer.Value).ToList();
 
-
-                        questParagraph.ReplaceText(questParagraph.Text, "");
-                        questParagraph.InsertText(sections[0], false,
-                            new Formatting { UnderlineStyle = UnderlineStyle.none });
-
                         for (var i = 0; i < options.Count; i++)
                         {
-                            questParagraph.InsertText(options[i], false,
-                                new Formatting { UnderlineStyle = UnderlineStyle.none });
-                            questParagraph.InsertText(sections[i + 1], false,
-                                answers.Contains(options[i])
-                                    ? new Formatting { UnderlineStyle = UnderlineStyle.doubleLine }
-                                    : new Formatting { UnderlineStyle = UnderlineStyle.none });
+                            if (answers.Contains(options[i]))
+                                questParagraph.ReplaceText(sections[i + 1], sections[i + 1], false, RegexOptions.None, new Formatting { UnderlineStyle = UnderlineStyle.doubleLine });
                         }
                         answerIndex++;
                     }
-                    questDoc.SaveAs($"{ofdQuestFileName}.{DateTime.Now.Second}");
+                    questDoc.SaveAs($"{ofdQuestFileName.Replace(".docx", "")}.Underline.{DateTime.Now.ToString("yyyyMMddHHmmss")}");
                 }
             }
         }
@@ -84,22 +75,14 @@ namespace DoubleUnderline
                         var options = (from Match ans in optionsEum select ans.Value.Remove(0, 1).Remove(1, 1)).ToList();
 
 
-                        questParagraph.ReplaceText(questParagraph.Text, "");
-                        questParagraph.InsertText(sections[0], false,
-                            new Formatting { UnderlineStyle = UnderlineStyle.none });
-
                         for (var i = 0; i < options.Count; i++)
                         {
-                            questParagraph.InsertText($"({options[i]})", false,
-                                new Formatting { UnderlineStyle = UnderlineStyle.none });
-                            questParagraph.InsertText(sections[i + 1], false,
-                                answer.Contains(options[i])
-                                    ? new Formatting { UnderlineStyle = UnderlineStyle.doubleLine }
-                                    : new Formatting { UnderlineStyle = UnderlineStyle.none });
+                            if (answer.Contains(options[i]))
+                                questParagraph.ReplaceText(sections[i + 1], sections[i + 1], false, RegexOptions.None, new Formatting { UnderlineStyle = UnderlineStyle.doubleLine });
                         }
                         answerIndex++;
                     }
-                    questDoc.SaveAs($"{ofdQuestFileName}.underline");
+                    questDoc.SaveAs($"{ofdQuestFileName.Replace(".docx", "")}.Underline.{DateTime.Now.ToString("yyyyMMddHHmmss")}");
                 }
             }
         }
@@ -112,8 +95,8 @@ namespace DoubleUnderline
                 {
                     foreach (var m in paragraph.MagicText)
                     {
-                        m.formatting = new Formatting { UnderlineStyle = UnderlineStyle.doubleLine };
-                        m.text = "RRRRRRRRR";
+                        var f = new Formatting { UnderlineStyle = UnderlineStyle.doubleLine };
+                        paragraph.ReplaceText(m.text, m.text, false, RegexOptions.None, f);
                     }
                 }
                 questDoc.SaveAs($"{ofdQuestFileName}.magicTest");
@@ -122,15 +105,15 @@ namespace DoubleUnderline
             using (FileStream stream = File.OpenRead(ofdQuestFileName))
             {
                 XWPFDocument doc = new XWPFDocument(stream);
-                foreach (var para in doc.Paragraphs)
-                {
-                    if (para.Runs.Any())
-                    {
-                        var r = para.Runs.First();
-                        r.SetUnderline(UnderlinePatterns.Double);
-                    }
-                }
-                FileStream out1 = new FileStream("simple.docx", FileMode.Create);
+                //foreach (var para in doc.Paragraphs)
+                //{
+                //    if (para.Runs.Any())
+                //    {
+                //        var r = para.Runs.First();
+                //        r.SetUnderline(UnderlinePatterns.Double);
+                //    }
+                //}
+                FileStream out1 = new FileStream($"simple.{DateTime.Now.ToString("yyyyMMddHHmmss")}.docx", FileMode.Create);
                 doc.Write(out1);
             }
         }

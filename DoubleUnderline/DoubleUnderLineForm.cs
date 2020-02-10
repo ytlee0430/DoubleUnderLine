@@ -42,6 +42,7 @@ namespace DoubleUnderline
             try
             {
                 _controller.RunDetail(ofdQuest.FileName, ofdAnswer.FileName);
+                MessageBox.Show("Done!");
             }
             catch (Exception exception)
             {
@@ -61,7 +62,7 @@ namespace DoubleUnderline
             try
             {
                 _controller.RunSimple(ofdQuest.FileName, ofdAnswer.FileName);
-
+                MessageBox.Show("Done!");
             }
             catch (Exception exception)
             {
